@@ -1,0 +1,13 @@
+{
+    "name": "flk-form",
+    "description": "A toolkit for handling forms and validations.",
+    "version": "0.1.44",
+    "author": {
+        "email": "hassanzohdy@gmail.com",
+        "name": "Hasan Zohdy"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/falakjs/flk-form"
+    }
+}

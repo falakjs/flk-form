@@ -1,0 +1,11 @@
+$errorColor: #e61212;
+$validSuccessColor: #9fd222;
+.required {
+    color: $errorColor;
+    margin: 0.5rem;
+}
+
+.error-msg {
+    color: $errorColor;
+    font-weight: bold;
+}
