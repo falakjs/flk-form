@@ -221,29 +221,29 @@ As mentioned earlier, the validation rules here are same as the `html5` validati
 Here is full list of validation rules.
 
  `email`: The `email` type is used to validate the input as a valid email address.
-  - i.e `<form-input type="email"></form-input>
+  - i.e `<form-input type="email"></form-input>`
 - `number`: The `number` type is used to validate the input as a valid number.
-  - i.e `<form-input type="number"></form-input>
+  - i.e `<form-input type="number"></form-input>`
 - `required`: The input must have a value `non-whitespace`.
-  - i.e `<form-input type="text" required></form-input>
- - `required-if`: The input must have a value 
-  - i.e `<form-input type="text" [required-if]="this.name == 'hasan'"></form-input>
+  - i.e `<form-input type="text" required></form-input>`
+ - `required-if`: The input must have a value.
+  - i.e `<form-input type="text" [required-if]="this.name == 'hasan'"></form-input>`
 - `length`: The input must have a value with the exact given length.
-  - i.e `<form-input type="text" length="12"></form-input>
+  - i.e `<form-input type="text" length="12"></form-input>`
 - `minlength`: The input must have a value with at least the given length.
-  - i.e `<form-input type="text" minlength="12"></form-input>
+  - i.e `<form-input type="text" minlength="12"></form-input>`
 - `maxlength`: The input must have a value with at most the given length.
-  - i.e `<form-input type="text" maxlength="12"></form-input>
+  - i.e `<form-input type="text" maxlength="12"></form-input>`
 - `min`: The input must have a value at least the given `min` number value.
-  - i.e `<form-input type="text" min="12"></form-input>
+  - i.e `<form-input type="text" min="12"></form-input>`
 - `max`: The input must have a value less than the given `max` number value.
-  - i.e `<form-input type="text" max="12"></form-input>
+  - i.e `<form-input type="text" max="12"></form-input>`
 - `pattern`: The input value must match the given pattern.
-  - i.e `<form-input type="text" pattern="^[a-zA-Z]+$"></form-input>
+  - i.e `<form-input type="text" pattern="^[a-zA-Z]+$"></form-input>`
 - `match`: The input value must match the value of the given input.
-  - i.e `<form-input type="password" name="confirmPassword" match="password"></form-input>
+  - i.e `<form-input type="password" name="confirmPassword" match="password"></form-input>`
 - `is`: Validate the input value With any of the `Supportive-is` package.
-  - i.e `<form-input type="text" is="mobileNumber.eg" placeholder="Enter a mobile number (Egypt number)" name="mobileNumber"></form-input>
+  - i.e `<form-input type="text" is="mobileNumber.eg" placeholder="Enter a mobile number (Egypt number)" name="mobileNumber"></form-input>`
 
 
 # Validation rules messages
