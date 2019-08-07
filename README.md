@@ -334,4 +334,5 @@ We didn't talk about `image`, `file` and `datepcker` inputs, here are more form 
 - [File input](https://github.com/falakjs/flk-file-input).
 - [Image input](https://github.com/falakjs/flk-image-input).
 - [Checkbox/Radio](https://github.com/falakjs/flk-checkbox).
+- [Autocomplete input](https://github.com/falakjs/flk-autocomplete-input).
 - [Audio recorder](https://github.com/falakjs/flk-audio-recorder).
