@@ -5,7 +5,7 @@ module.exports = class RequiredRule extends Rule {
      * {@inheritDoc}
      */
     options() {
-        let mainCriteria = this.tag.attrs().forcePull('required-if');
+        let mainCriteria = this.tag.attrs().forcePull('[required]');
         return {
             rule: this.rule,
             priority: 1,

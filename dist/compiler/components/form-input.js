@@ -11,7 +11,7 @@ const RadioInput = require('./types/radio');
 const SelectInput = require('./types/select');
 const DatepickerInput = require('./types/datepicker');
 const RequiredRule = require('./rules/required');
-const RequiredIfRule = require('./rules/required-if');
+const DynamicRequiredRule = require('./rules/dynamic-required');
 const LengthRule = require('./rules/length');
 const MinLengthRule = require('./rules/min-length');
 const MaxLengthRule = require('./rules/max-length');
@@ -49,7 +49,7 @@ class FormInput extends Tag {
     rules() {
         return {
             required: RequiredRule,
-            'required-if': RequiredIfRule,
+            '[required]': DynamicRequiredRule,
             length: LengthRule,
             minlength: MinLengthRule,
             maxlength: MaxLengthRule,
@@ -210,18 +210,28 @@ class FormInput extends Tag {
 
             // the * that will be added inside the label
             // i.e <label>My text <span class="required">*</span></label>
-            if (attributes.has('required')) {
+            if (attributes.has('required') || attributes.has('[required]')) {
                 let requiredElementTag = this.getOption('required-el-tag', 'formGroup.label.requiredElement.tag', 'span'),
                     requiredElementText = this.getOption('required-el-text', 'formGroup.label.requiredElement.text', '*'),
                     requiredElementTitle = this.getOption('required-el-title', 'formGroup.label.requiredElement.title', 'required'),
                     requiredElementClass = this.getOption('required-el-class', 'formGroup.label.requiredElement.className', 'required');
 
                 if (requiredElementTag) {
-                    let requiredSpan = this.createElement(requiredElementTag, {
-                        class: requiredElementClass,
-                        title: requiredElementTitle,
-                    }, [document.createTextNode(requiredElementText)]);
-                    label.appendChild(requiredSpan);
+                    let requiredElement;
+                    if (attributes.has('required')) {
+                        requiredElement = this.createElement(requiredElementTag, {
+                            class: requiredElementClass,
+                            title: requiredElementTitle,
+                        }, [document.createTextNode(requiredElementText)]);
+                    } else {
+                        requiredElement = this.createElement(requiredElementTag, {
+                            class: requiredElementClass,
+                            title: requiredElementTitle,
+                            '*if': attributes.get('[required]'),
+                        }, [document.createTextNode(requiredElementText)]);
+                    }
+                    
+                    label.appendChild(requiredElement);
                 }
             }
 
