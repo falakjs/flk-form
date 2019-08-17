@@ -10,9 +10,27 @@ class FormHandler {
 
         this.errorsList = {};
         this.isValid = false;
-        if (! this.component.errors) {
+        if (!this.component.errors) {
             this.component.errors = {};
         }
+    }
+
+    /**
+     * Check if form has errors
+     * 
+     * @returns bool
+     */
+    hasErrors() {
+        return ! Is.empty(this.errorsList);
+    }
+
+    /**
+     * Get all errors
+     * 
+     * @returns object
+     */
+    getErrors() {
+        return this.errorsList;
     }
 
     /**
@@ -48,7 +66,7 @@ class FormHandler {
 
         return false;
     }
-    
+
     /**
      * Set error to component
      * 
@@ -72,6 +90,21 @@ class FormHandler {
         }
 
         return true;
+    }
+
+
+    /**
+     * 
+     * @param {*} errors 
+     */
+    validate() {
+        for (let input of this.form.querySelectorAll('input, textarea')) {
+            input.dispatchEvent(new Event("input"));
+        }
+
+        for (let input of this.form.querySelectorAll('select')) {
+            input.dispatchEvent(new Event("change"));
+        }
     }
 
     /**

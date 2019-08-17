@@ -12,12 +12,7 @@ class Form extends Tag {
         this.on('submit', `e.preventDefault();e.stopImmediatePropagation(); if (typeof ${this.htmlCompiler.objectName}.isValidForm != 'undefined' && ! ${this.htmlCompiler.objectName}.isValidForm) return false;`, true);
         // document.activeElement.blur();
         this.on('submit', `
-        for (let input of this.querySelectorAll('input, textarea')) {
-            input.dispatchEvent(new Event("${inputValidationEvent}"));
-        }
-        for (let input of this.querySelectorAll('select')) {
-            input.dispatchEvent(new Event("change"));
-        }
+            this.formHandler.validate();
         `, true);
 
         this.variableNameWillBeUsed();
