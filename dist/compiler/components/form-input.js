@@ -19,7 +19,7 @@ const IsRule = require('./rules/is');
 const PatternRule = require('./rules/pattern');
 const MatchRule = require('./rules/match');
 
-if (! global.currentFormVariable) {
+if (!global.currentFormVariable) {
     global.currentFormVariable = 'cfrmdlr';
 }
 
@@ -193,73 +193,72 @@ class FormInput extends Tag {
     detectFormGroup() {
         let attributes = this.attrs();
 
-        if (attributes.has('label') || attributes.has('[label]')) {
-            this.isFormGroup = true;
-            let formGroupAttributes = this.getFormGroupAttributes();
-            let formGroupTag = this.getOption('fg-tag', 'formGroup.tag', 'div');
-            let formGroupElement = this.createElement(formGroupTag, formGroupAttributes);
-            let currentElement = this.originalElement,
-                parent = currentElement.parentNode;
+        if (! (attributes.has('label') || attributes.has('[label]'))) return false;
 
-            // replace the child node
-            parent.insertBefore(formGroupElement, currentElement);
+        this.isFormGroup = true;
+        let formGroupAttributes = this.getFormGroupAttributes();
+        let formGroupTag = this.getOption('fg-tag', 'formGroup.tag', 'div');
+        let formGroupElement = this.createElement(formGroupTag, formGroupAttributes);
+        let currentElement = this.originalElement,
+            parent = currentElement.parentNode;
 
-            parent.removeChild(currentElement);
+        // replace the child node
+        parent.insertBefore(formGroupElement, currentElement);
 
-            let label = this.getLabel();
+        parent.removeChild(currentElement);
 
-            // the * that will be added inside the label
-            // i.e <label>My text <span class="required">*</span></label>
-            if (attributes.has('required') || attributes.has('[required]')) {
-                let requiredElementTag = this.getOption('required-el-tag', 'formGroup.label.requiredElement.tag', 'span'),
-                    requiredElementText = this.getOption('required-el-text', 'formGroup.label.requiredElement.text', '*'),
-                    requiredElementTitle = this.getOption('required-el-title', 'formGroup.label.requiredElement.title', 'required'),
-                    requiredElementClass = this.getOption('required-el-class', 'formGroup.label.requiredElement.className', 'required');
+        let label = this.getLabel();
 
-                if (requiredElementTag) {
-                    let requiredElement;
-                    if (attributes.has('required')) {
-                        requiredElement = this.createElement(requiredElementTag, {
-                            class: requiredElementClass,
-                            title: requiredElementTitle,
-                        }, [document.createTextNode(requiredElementText)]);
-                    } else {
-                        requiredElement = this.createElement(requiredElementTag, {
-                            class: requiredElementClass,
-                            title: requiredElementTitle,
-                            '*if': attributes.get('[required]'),
-                        }, [document.createTextNode(requiredElementText)]);
-                    }
-                    
-                    label.appendChild(requiredElement);
+        // the * that will be added inside the label
+        // i.e <label>My text <span class="required">*</span></label>
+        if (attributes.has('required') || attributes.has('[required]')) {
+            let requiredElementTag = this.getOption('required-el-tag', 'formGroup.label.requiredElement.tag', 'span'),
+                requiredElementText = this.getOption('required-el-text', 'formGroup.label.requiredElement.text', '*'),
+                requiredElementTitle = this.getOption('required-el-title', 'formGroup.label.requiredElement.title', 'required'),
+                requiredElementClass = this.getOption('required-el-class', 'formGroup.label.requiredElement.className', 'required');
+
+            if (requiredElementTag) {
+                let requiredElement;
+                if (attributes.has('required')) {
+                    requiredElement = this.createElement(requiredElementTag, {
+                        class: requiredElementClass,
+                        title: requiredElementTitle,
+                    }, [document.createTextNode(requiredElementText)]);
+                } else {
+                    requiredElement = this.createElement(requiredElementTag, {
+                        class: requiredElementClass,
+                        title: requiredElementTitle,
+                        '*if': attributes.get('[required]'),
+                    }, [document.createTextNode(requiredElementText)]);
                 }
+
+                label.appendChild(requiredElement);
             }
-
-            // this.resetAttributes('label', 'required-symbol', 'insert-label', '[label]');
-
-            // insert-label="before|after"
-            let labelPosition = this.getOption('label-position', 'formGroup.label.position', 'before');
-            
-            this.resetElementSpecialAttributes(currentElement);
-
-            if (labelPosition === 'after') {
-                formGroupElement.appendChild(currentElement);
-                formGroupElement.appendChild(label);
-            } else {
-                formGroupElement.appendChild(label);
-                formGroupElement.appendChild(currentElement);
-            }
-
-            // disable the build of the current tag as it will be built later
-            this.build = () => { };
-
-            formGroupElement.isFormGroupElement = true;
-
-            this.htmlCompiler.extract(formGroupElement);
-            return true;
         }
 
-        return false;
+        // this.resetAttributes('label', 'required-symbol', 'insert-label', '[label]');
+
+        // insert-label="before|after"
+        let labelPosition = this.getOption('label-position', 'formGroup.label.position', 'before');
+
+        this.resetElementSpecialAttributes(currentElement);
+
+        if (labelPosition === 'after') {
+            formGroupElement.appendChild(currentElement);
+            formGroupElement.appendChild(label);
+        } else {
+            formGroupElement.appendChild(label);
+            formGroupElement.appendChild(currentElement);
+        }
+
+        // disable the build of the current tag as it will be built later
+        this.build = () => { };
+
+        formGroupElement.isFormGroupElement = true;
+
+        this.htmlCompiler.extract(formGroupElement);
+
+        return true;
     }
 
     /**
