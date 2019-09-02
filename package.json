@@ -1,7 +1,7 @@
 {
     "name": "flk-form",
     "description": "A toolkit for handling forms and validations.",
-    "version": "0.1.48",
+    "version": "0.1.49",
     "main": "dist/form-handler.js",
     "author": {
         "email": "hassanzohdy@gmail.com",
