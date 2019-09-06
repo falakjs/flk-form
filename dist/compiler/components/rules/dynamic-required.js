@@ -7,7 +7,7 @@ module.exports = class RequiredRule extends Rule {
     options() {
         let mainCriteria = this.tag.attrs().forcePull('[required]');
         return {
-            rule: this.rule,
+            rule: 'required',
             priority: 1,
             condition: `${mainCriteria} && Is.empty(value)`,
             message: `trans('validation.required')`,
